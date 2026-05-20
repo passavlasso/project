@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Core\Database;
+use App\Core\View;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PostRepository;
 
@@ -24,7 +25,9 @@ class HomeController
             ];
         }
 
-        var_dump($data);
+        (new View())->render('home.tpl', [
+            'data' => $data
+        ]);
     }
 
 }
