@@ -1,0 +1,62 @@
+
+volumes:
+  api-project-mysql:
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: project_app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - app-network-project
+    depends_on:
+      - mysql
+
+  webserver:
+    image: nginx:latest
+    container_name: nginx_project
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - app-network-project
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql:8
+    container_name: mysql_project
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+    ports:
+      - 3306:${DB_PORT:-3306}
+    volumes:
+      - 'api-project-mysql:/var/lib/mysql:delegated'
+    networks:
+      - app-network-project
+
+  adminer:
+    image: adminer
+    container_name: adminer_project
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - app-network-project
+
+networks:
+  app-network-project:
+    driver: bridge
