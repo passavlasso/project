@@ -57,4 +57,39 @@ class PostRepository extends BaseRepository
 
         return $stmt->fetchAll();
     }
+
+
+    public function getByCategory($categoryId, $sort = 'date', $limit = 10, $offset = 0)
+    {
+        $orderBy = match ($sort) {
+            'views' => 'p.views DESC',
+            default => 'p.created_at DESC'
+        };
+
+        $sql = "
+        SELECT p.*
+        FROM posts p
+        INNER JOIN category_post cp ON cp.post_id = p.id
+        WHERE cp.category_id = ?
+        ORDER BY $orderBy
+        LIMIT $limit OFFSET $offset
+    ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$categoryId]);
+
+        return $stmt->fetchAll();
+    }
+
+    public function countByCategory($categoryId)
+    {
+        $stmt = $this->db->prepare("
+        SELECT COUNT(*) as cnt
+        FROM category_post
+        WHERE category_id = ?
+    ");
+
+        $stmt->execute([$categoryId]);
+        return $stmt->fetch()['cnt'];
+    }
 }
