@@ -15,7 +15,7 @@ class PostController
 
         if (!$post) {
             http_response_code(404);
-            echo "Post not found";
+            (new View())->render('404.tpl');
             return;
         }
 

@@ -17,7 +17,7 @@ class CategoryController
 
         if (!$category) {
             http_response_code(404);
-            echo "Category not found";
+            (new View())->render('404.tpl');
             return;
         }
 
