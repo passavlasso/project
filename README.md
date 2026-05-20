@@ -41,16 +41,14 @@ Adminer http://localhost:8080
 
 Adminer Access
 
-Field	Value
+-System:	MySQL
 
-System	MySQL
+-Server:	mysql
 
-Server	mysql
+-Username:	root
 
-Username	root
+-Password:	root
 
-Password	root
-
-Database	blog
+-Database:	blog
 
 ---
