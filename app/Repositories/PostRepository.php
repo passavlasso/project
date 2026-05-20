@@ -38,19 +38,19 @@ class PostRepository extends BaseRepository
         $stmt->execute([$id]);
     }
 
-    public function getRelated(int $postId, int $limit = 3): array
+    public function getRelated($postId, $limit = 3): array
     {
         $sql = "
-            SELECT p2.*
-            FROM posts p1
-            JOIN category_post cp1 ON cp1.post_id = p1.id
-            JOIN category_post cp2 ON cp2.category_id = cp1.category_id
-            JOIN posts p2 ON p2.id = cp2.post_id
-            WHERE p1.id = ?
-              AND p2.id != p1.id
-            GROUP BY p2.id
-            LIMIT $limit
-        ";
+        SELECT p2.*
+        FROM posts p1
+        JOIN category_post cp1 ON cp1.post_id = p1.id
+        JOIN category_post cp2 ON cp2.category_id = cp1.category_id
+        JOIN posts p2 ON p2.id = cp2.post_id
+        WHERE p1.id = ?
+          AND p2.id != p1.id
+        GROUP BY p2.id
+        LIMIT $limit
+    ";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$postId]);
@@ -92,4 +92,5 @@ class PostRepository extends BaseRepository
         $stmt->execute([$categoryId]);
         return $stmt->fetch()['cnt'];
     }
+
 }
