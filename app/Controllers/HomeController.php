@@ -3,15 +3,28 @@
 namespace App\Controllers;
 
 use App\Core\Database;
+use App\Repositories\CategoryRepository;
+use App\Repositories\PostRepository;
 
 class HomeController
 {
     public function index()
     {
-        $db = Database::connect();
-        $result = $db->query("SELECT 1 as test")->fetch();
+        $categoryRepo = new CategoryRepository();
+        $postRepo = new PostRepository();
 
-        var_dump($result);
+        $categories = $categoryRepo->getAllWithPosts();
+
+        $data = [];
+
+        foreach ($categories as $category) {
+            $data[] = [
+                'category' => $category,
+                'posts' => $postRepo->getLatestByCategory($category['id'], 3)
+            ];
+        }
+
+        var_dump($data);
     }
 
 }
