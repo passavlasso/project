@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Core\Database;
 use App\Core\View;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PostRepository;

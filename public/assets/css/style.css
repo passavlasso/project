@@ -1,0 +1,87 @@
+
+.category-section {
+    margin-bottom: 40px;
+    font-family: Arial, sans-serif;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.category-header h2 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #333;
+}
+
+.view-all {
+    font-size: 0.85rem;
+    color: #666;
+    text-decoration: underline;
+}
+
+/* Сітка для карток */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Стилі картки поста */
+.post-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-image-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    color: #222;
+}
+
+.post-meta {
+    font-size: 0.75rem;
+    color: #999;
+    margin-bottom: 12px;
+}
+
+.post-excerpt {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    font-size: 0.85rem;
+    color: #000;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.section-divider {
+    border: 0;
+    border-top: 1px solid #f0f0f0;
+    margin: 50px 0;
+}
